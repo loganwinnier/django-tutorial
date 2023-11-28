@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Question, Choice
+from .models import Question, Choice, Comment
+
 
 # Register your models here.
 admin.AdminSite.site_header = 'P'
@@ -9,12 +10,17 @@ class ChoiceInline(admin.TabularInline):
     extra = 0
     classes = ["collapse"]
 
+class CommentInline(admin.StackedInline):
+    model = Comment
+    extra = 0
+    classes = ["collapse"]
+
 class QuestionAdmin(admin.ModelAdmin):
     fieldsets = [
         ("Question", {"fields": [ "question_text"]}),
         ("Date information", {"fields": ["pub_date"], "classes": ["collapse"]}),
     ]
-    inlines = [ChoiceInline]
+    inlines = [ChoiceInline, CommentInline]
     list_display = ["question_text", "pub_date",  "was_published_recently"]
     list_filter = ["pub_date"]
     search_fields = ["question_text"]

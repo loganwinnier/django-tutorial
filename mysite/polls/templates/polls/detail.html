@@ -22,11 +22,10 @@
         </fieldset>
         <input type="submit" value="Vote">
     </form>
-    <ul>
-        {% for choice in question.choice_set.all %}
-        <li>{{choice.choice_text}}</li>
-        {% endfor %}
-    </ul>
+    <h2>Comments</h2>
+    {% for comment in question.comment_set.all %}
+        <p>{{comment}}</p>
+    {% endfor %}
 </body>
 
 </html>
