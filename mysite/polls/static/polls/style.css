@@ -1,0 +1,10 @@
+li a {
+    color: white;
+    font-size: 2rem
+}
+
+body {
+    background: url("images/background.webp") no-repeat;
+    width: 100%
+}
+
