@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.utils import timezone
 from django.urls import reverse
 
-from .models import Question
+from .models import Question, Comment
 
 
 class QuestionModelTests(TestCase):
@@ -44,6 +44,12 @@ def create_question(question_text, days):
     """
     time = timezone.now() + datetime.timedelta(days=days)
     return Question.objects.create(question_text=question_text, pub_date=time)
+
+def create_comment(comment_text, question):
+    """
+    Create a comment with the given `comment_text` and
+    """
+    return Comment.objects.create(question=question, comment_text=comment_text)
 
 class QuestionIndexViewTests(TestCase):
     def test_no_questions(self):
@@ -122,3 +128,13 @@ class QuestionDetailViewTests(TestCase):
         url = reverse("polls:detail", args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
+
+    def test_comment_appears(self):
+        """
+        The detail view of a question displays comments 
+        """
+        question = create_question(question_text="Past Question.", days=-2)
+        comment =create_comment(comment_text="this is a comment", question=question)
+        url = reverse("polls:detail", args=(question.id,))
+        response = self.client.get(url)
+        self.assertContains(response, comment.comment_text)
