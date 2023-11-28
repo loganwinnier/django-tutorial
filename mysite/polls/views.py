@@ -7,6 +7,10 @@ from django.utils import timezone
 from .models import Choice, Question
 # Create your views here.
 
+class HomeView(generic.TemplateView):
+    template_name = "polls/home.html"
+
+
 class IndexView(generic.ListView):
     template_name = "polls/index.html"
     context_object_name = "latest_question_list"
@@ -24,7 +28,7 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Question
     template_name = "polls/detail.html"
-    
+
     def get_queryset(self):
         """
         Excludes any questions that aren't published yet.
