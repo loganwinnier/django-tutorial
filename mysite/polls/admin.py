@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import Question, Choice
 
 # Register your models here.
-admin.AdminSite.site_header = 'Polls Admin'
+admin.AdminSite.site_header = 'P'
 
 class ChoiceInline(admin.TabularInline):
     model = Choice
